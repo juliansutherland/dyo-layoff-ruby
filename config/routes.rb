@@ -1,4 +1,14 @@
 DyoLayoff::Application.routes.draw do
+  resources :admins
+  resources :users
+  resources :sessions, only: [:new, :create, :destroy]
+  resources :votes, only: [:new, :create]
+  root 'static_pages#home'
+  match '/admin',   to: 'sessions#new',     via: 'get'
+  match '/signout', to: 'sessions#destroy', via: 'delete'
+  match '/user',    to: 'votes#new',        via: 'get'
+  match '/load_users', to: 'static_pages#load', via: 'get'
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
